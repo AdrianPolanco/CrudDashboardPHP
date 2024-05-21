@@ -1,7 +1,11 @@
+<?php
+
+declare(strict_types=1); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de gestion de guerreros Z</title>
@@ -24,8 +28,22 @@
 <body>
     <h1 class="text-center p-3">Hola Mundo</h1>
     <main class="container-fluid row">
+        <?php if (!empty($errors)) : ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($errors as $error) : ?>
+                        <li><?= htmlspecialchars($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
-        <form class="col-4 needs-validation" method="post" action="controllers/warriorController.php" novalidate>
+        <?php if (isset($successMessage)) : ?>
+            <div class="alert alert-success">
+                <?= $successMessage ?>
+            </div>
+        <?php endif; ?>
+        <form class="col-4 needs-validation" method="post" action="controllers/create_warrior.php" novalidate>
             <h3 class="text-warning text-center">Registrar nuevo guerrero Z</h3>
             <div class="mb-3">
                 <label for="warrior-name" class="form-label">Nombre: </label>
@@ -60,8 +78,11 @@
                     <th scope="col">Acciones</th>
                 </thead>
                 <?php
-                include 'models/connection.php';
-                $result = $connection->query('SELECT * FROM warriors');
+
+
+                include 'data/database.php';
+                $db = new Database();
+                $result = $db->getAllRecords();
                 ?>
                 <?php if (!$result) : ?>
                     <tbody>
@@ -71,7 +92,7 @@
                     </tbody>
                 <?php else : ?>
                     <tbody>
-                        <?php while ($row = $result->fetch_assoc()) : ?>
+                        <?php foreach ($result as $row) : ?>
                             <tr>
                                 <th scope="row"><?= $row["id"] ?></th>
                                 <td><?= $row["nombre"] ?></td>
@@ -82,7 +103,7 @@
                                     <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 <?php endif; ?>
 

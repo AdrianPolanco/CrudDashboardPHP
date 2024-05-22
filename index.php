@@ -114,18 +114,23 @@ declare(strict_types=1); ?>
             <nav aria-label="Warriors pagination">
                 <ul class="pagination">
                     <ul class="pagination">
-                        <li class="page-item <?= $page <= 5 ? 'disabled' : '' ?>">
-                            <a class="page-link" href="#" aria-label="Previous">
+                        <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
                                 <span aria-hidden="true">«</span>
                             </a>
                         </li>
-                        <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                        <?php
+                        $startPage = max(1, $page - 2);
+                        $endPage = min($totalPages, $startPage + 4);
+                        $startPage = max(1, $endPage - 4);
+
+                        for ($i = $startPage; $i <= $endPage; $i++) :
+                        ?>
                             <li class="page-item <?= $page === $i ? 'active' : '' ?>">
-                                <a class="page-link text-<?= $page === $i ? 'white' : 'warning' ?>" href="?page=<?= $i ?>"><?= $i ?>
-                                </a>
+                                <a class="page-link text-<?= $page === $i ? 'white' : 'warning' ?>" href="?page=<?= $i ?>"><?= $i ?></a>
                             </li>
-                        <?php endfor ?>
-                        <li class="page-item <?= $page >= $totalPages - 5 ? 'disabled' : '' ?>">
+                        <?php endfor; ?>
+                        <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
                             <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
                                 <span aria-hidden="true">»</span>
                             </a>

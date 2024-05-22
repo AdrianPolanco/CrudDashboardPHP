@@ -14,11 +14,12 @@ class Database
         $this->connection->set_charset('utf8');
     }
 
-    public function getAllRecords(): array
+    private function countRecords(): int
     {
-        $sql = "SELECT * FROM warriors ORDER BY id";
+        $sql = "SELECT COUNT(*) FROM warriors";
         $result = $this->connection->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $row = $result->fetch_assoc();
+        return (int)$row["COUNT(*)"];
     }
 
     public function getRecordById(int $id): ?array
@@ -37,12 +38,14 @@ class Database
     public function getRecordsByPage(int $page): array
     {
         $offset = ($page - 1) * 10;
-        $sql = "SELECT * FROM warriors LIMIT 10 OFFSET ?";
+        $sql = "SELECT * FROM warriors ORDER BY id LIMIT 10 OFFSET ?";
         $preparedQuery = $this->connection->prepare($sql);
         $preparedQuery->bind_param("i", $offset);
         $preparedQuery->execute();
         $result = $preparedQuery->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $recordsQuantity = $this->countRecords();
+        return ["data" => $data, "totalPages" => ceil($recordsQuantity / 10)];
     }
 
     public function insertRecord(string $name, string $lastname, string $birthdate): bool

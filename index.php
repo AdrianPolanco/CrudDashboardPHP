@@ -22,6 +22,23 @@ declare(strict_types=1); ?>
         .btn-outline-warning.enabled {
             font-weight: bold;
         }
+
+        .page-item.active .page-link {
+            background-color: #ffc107;
+            color: #fff;
+            border-color: #ffc107;
+        }
+
+        .page-item .page-link {
+            background-color: #fff;
+            color: #ffc107;
+        }
+
+        .page-item.disabled .page-link {
+            background-color: #F1EAE8;
+            color: #D3CFCE;
+        }
+    </style>
     </style>
 </head>
 
@@ -53,7 +70,7 @@ declare(strict_types=1); ?>
             </div>
             <button type="submit" class="btn btn-outline-warning enabled" id="submitBtn" disabled>Registrar</button>
         </form>
-        <article class="col-8 p-4">
+        <article class="col-8 p-4 d-flex flex-column align-items-center">
             <table class="table">
                 <thead class="table-warning">
                     <th scope="col">Id</th>
@@ -67,9 +84,10 @@ declare(strict_types=1); ?>
 
                 include 'data/database.php';
                 $db = new Database();
-                $result = $db->getAllRecords();
+                $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                ["data" => $data, "totalPages" => $totalPages] = $db->getRecordsByPage(page: $page);
                 ?>
-                <?php if (!$result) : ?>
+                <?php if (!$data) : ?>
                     <tbody>
                         <tr class="text-center">
                             <td colspan="5">No hay guerreros registrados</td>
@@ -77,7 +95,7 @@ declare(strict_types=1); ?>
                     </tbody>
                 <?php else : ?>
                     <tbody>
-                        <?php foreach ($result as $row) : ?>
+                        <?php foreach ($data as $row) : ?>
                             <tr>
                                 <th scope="row"><?= $row["id"] ?></th>
                                 <td><?= $row["nombre"] ?></td>
@@ -93,6 +111,27 @@ declare(strict_types=1); ?>
                 <?php endif; ?>
 
             </table>
+            <nav aria-label="Warriors pagination">
+                <ul class="pagination">
+                    <ul class="pagination">
+                        <li class="page-item <?= $page <= 5 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                        <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                            <li class="page-item <?= $page === $i ? 'active' : '' ?>">
+                                <a class="page-link text-<?= $page === $i ? 'white' : 'warning' ?>" href="?page=<?= $i ?>"><?= $i ?>
+                                </a>
+                            </li>
+                        <?php endfor ?>
+                        <li class="page-item <?= $page >= $totalPages - 5 ? 'disabled' : '' ?>">
+                            <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                    </ul>
+            </nav>
         </article>
     </main>
 

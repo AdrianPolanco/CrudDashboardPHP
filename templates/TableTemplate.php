@@ -19,7 +19,7 @@
                         <td><?= $row[$field] ?></td>
                     <?php endforeach; ?>
                     <td>
-                        <a href="<?= $updateRoute ?>?<?= $updateQueryParameter ?>=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="<?= $updateRoute->form ?>?<?= $updateRoute->queryParameter ?>=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="<?= $deleteRoute ?>?<?= $deleteQueryParameter ?>=<?= $row["id"] ?>&page=<?= $page ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>

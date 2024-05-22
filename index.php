@@ -22,6 +22,7 @@
 
         include 'data/database.php';
         include 'types/table/Table.php';
+        include 'types/routes/UpdateRoute.php';
         $db = new Database();
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         ["data" => $data, "totalPages" => $totalPages] = $db->getRecordsByPage(page: $page);
@@ -31,40 +32,18 @@
             data: $data,
             page: $page,
             totalPages: $totalPages,
-            updateRoute: "controllers/warriors/update_warrior.php",
-            updateQueryParameter: "id",
+            updateRoute: new UpdateRoute(
+                "controllers/warriors/get_warrior.php",
+                "controllers/warriors/update_warrior.php",
+                "id"
+            ),
             deleteRoute: "controllers/warriors/delete_warrior.php",
             deleteQueryParameter: "id"
         );
 
         $table->render();
         ?>
-        <nav aria-label="Warriors pagination">
-            <ul class="pagination">
-                <ul class="pagination">
-                    <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
-                            <span aria-hidden="true">«</span>
-                        </a>
-                    </li>
-                    <?php
-                    $startPage = max(1, $page - 2);
-                    $endPage = min($totalPages, $startPage + 4);
-                    $startPage = max(1, $endPage - 4);
 
-                    for ($i = $startPage; $i <= $endPage; $i++) :
-                    ?>
-                        <li class="page-item <?= $page === $i ? 'active' : '' ?>">
-                            <a class="page-link text-<?= $page === $i ? 'white' : 'warning' ?>" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                    <?php endfor; ?>
-                    <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
-                            <span aria-hidden="true">»</span>
-                        </a>
-                    </li>
-                </ul>
-        </nav>
     </article>
 </main>
 <?php include "./components/footer.php" ?>

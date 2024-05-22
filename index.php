@@ -45,7 +45,7 @@ declare(strict_types=1); ?>
 <body>
     <h1 class="text-center p-3">Hola Mundo</h1>
     <main class="container-fluid row">
-        <form class="col-4 needs-validation" method="post" action="controllers/create_warrior.php" novalidate>
+        <form class="col-4 needs-validation" method="post" action="controllers/warriors/create_warrior.php" novalidate>
             <h3 class="text-warning text-center">Registrar nuevo guerrero Z</h3>
             <div class="mb-3">
                 <label for="warrior-name" class="form-label">Nombre: </label>
@@ -102,8 +102,8 @@ declare(strict_types=1); ?>
                                 <td><?= $row["apellido"] ?></td>
                                 <td><?= $row["fecha_nacimiento"] ?></td>
                                 <td>
-                                    <a href="./controllers/get_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="./controllers/delete_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                    <a href="./controllers/warriors/get_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a href="./controllers/warriors/delete_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

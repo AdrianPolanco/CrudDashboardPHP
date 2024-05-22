@@ -29,7 +29,7 @@ if ($id && $name && $lastname && $birthDate) {
         <?php if (isset($warrior)) : ?>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form method="post" action="../controllers/update_warrior.php">
+                    <form method="post" action="../controllers/warriors/update_warrior.php">
                         <input type="hidden" name="id" value="<?= $warrior['id'] ?>">
                         <div class="mb-3">
                             <label for="warrior-name" class="form-label">Nombre:</label>

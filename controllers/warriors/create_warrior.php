@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-include '../helpers/Validator.php';
-include '../data/Database.php';
+include '../../helpers/Validator.php';
+include '../../data/database.php';
 
 $errors = [];
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($success) {
             $successMessage = "El guerrero Z se ha registrado correctamente.";
             // Refrescar la página para ver el nuevo registro
-            header("Location: ../index.php");
+            header("Location: ../../index.php");
             exit();
         } else {
             $errors[] = "Error al insertar el registro en la base de datos.";

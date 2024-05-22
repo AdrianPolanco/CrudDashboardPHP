@@ -14,7 +14,7 @@ class Database
         $this->connection->set_charset('utf8');
     }
 
-    private function countRecords(string $table = "warriors"): int
+    public function countRecords(string $table = "warriors"): int
     {
         $sql = "SELECT COUNT(*) FROM $table";
         $result = $this->connection->query($sql);

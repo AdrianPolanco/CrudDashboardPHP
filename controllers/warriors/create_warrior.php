@@ -24,8 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($success) {
             $successMessage = "El guerrero Z se ha registrado correctamente.";
+            $lastPage = ceil($db->countRecords() / 10);
             // Refrescar la página para ver el nuevo registro
-            header("Location: ../../index.php");
+            header("Location: ../../index.php?page=$lastPage");
             exit();
         } else {
             $errors[] = "Error al insertar el registro en la base de datos.";

@@ -8,6 +8,7 @@ include '../data/Database.php';
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'] ?? '';
     $name = $_POST['warrior-name'] ?? '';
     $lastname = $_POST['warrior-lastname'] ?? '';
     $birthDate = $_POST['birth-date'] ?? '';
@@ -20,15 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($errors)) {
         $db = new Database();
-        $success = $db->insertRecord($name, $lastname, $birthDate);
+        $success = $db->updateRecord(intval($id), $name, $lastname, $birthDate);
 
         if ($success) {
-            $successMessage = "El guerrero Z se ha registrado correctamente.";
+            $successMessage = "El guerrero Z se ha actualizado correctamente.";
             // Refrescar la página para ver el nuevo registro
             header("Location: ../index.php");
             exit();
         } else {
-            $errors[] = "Error al insertar el registro en la base de datos.";
+            $errors[] = "Error al actualizar el registro en la base de datos.";
         }
     }
 }

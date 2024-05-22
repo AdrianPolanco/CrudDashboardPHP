@@ -28,21 +28,6 @@ declare(strict_types=1); ?>
 <body>
     <h1 class="text-center p-3">Hola Mundo</h1>
     <main class="container-fluid row">
-        <?php if (!empty($errors)) : ?>
-            <div class="alert alert-danger">
-                <ul>
-                    <?php foreach ($errors as $error) : ?>
-                        <li><?= htmlspecialchars($error) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <?php if (isset($successMessage)) : ?>
-            <div class="alert alert-success">
-                <?= $successMessage ?>
-            </div>
-        <?php endif; ?>
         <form class="col-4 needs-validation" method="post" action="controllers/create_warrior.php" novalidate>
             <h3 class="text-warning text-center">Registrar nuevo guerrero Z</h3>
             <div class="mb-3">
@@ -86,7 +71,7 @@ declare(strict_types=1); ?>
                 ?>
                 <?php if (!$result) : ?>
                     <tbody>
-                        <tr>
+                        <tr class="text-center">
                             <td colspan="5">No hay guerreros registrados</td>
                         </tr>
                     </tbody>
@@ -99,8 +84,8 @@ declare(strict_types=1); ?>
                                 <td><?= $row["apellido"] ?></td>
                                 <td><?= $row["fecha_nacimiento"] ?></td>
                                 <td>
-                                    <a href="" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
-                                    <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                    <a href="./controllers/get_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                                    <a href="./controllers/delete_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

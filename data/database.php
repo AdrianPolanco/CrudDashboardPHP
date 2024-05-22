@@ -16,7 +16,7 @@ class Database
 
     public function getAllRecords(): array
     {
-        $sql = "SELECT * FROM warriors";
+        $sql = "SELECT * FROM warriors ORDER BY id";
         $result = $this->connection->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }

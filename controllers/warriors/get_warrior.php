@@ -7,7 +7,7 @@ $db = new Database();
 $id = $_GET['id'] ?? null;
 
 if ($id) {
-    $warrior = $db->getRecordById(intval($id));
+    $warrior = $db->getWarriorById(intval($id));
     if ($warrior) {
         $name = $warrior['nombre'];
         $lastname = $warrior['apellido'];

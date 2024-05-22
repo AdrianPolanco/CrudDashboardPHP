@@ -1,4 +1,4 @@
-<?php include "./components/header.php" ?>
+<?php include "./templates/header.php" ?>
 <main class="container-fluid row p-3 main d-flex align-items-center">
     <?php
     include "./types/form/Form.php";
@@ -25,7 +25,7 @@
         include 'types/routes/UpdateRoute.php';
         $db = new Database();
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-        ["data" => $data, "totalPages" => $totalPages] = $db->getRecordsByPage(page: $page);
+        ["data" => $data, "totalPages" => $totalPages] = $db->getWarriorsByPage(page: $page);
 
         $table = new Table(
             columns: ["id", "nombre", "apellido", "fecha_nacimiento"],
@@ -46,7 +46,7 @@
 
     </article>
 </main>
-<?php include "./components/footer.php" ?>
+<?php include "./templates/footer.php" ?>
 </body>
 
 </html>

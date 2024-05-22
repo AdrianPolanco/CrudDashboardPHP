@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($errors)) {
         $db = new Database();
-        $success = $db->insertRecord($name, $lastname, $birthDate);
+        $success = $db->insertWarrior($name, $lastname, $birthDate);
 
         if ($success) {
             $successMessage = "El guerrero Z se ha registrado correctamente.";
-            $lastPage = ceil($db->countRecords() / 10);
+            $lastPage = ceil($db->countWarriors() / 10);
             // Refrescar la página para ver el nuevo registro
             header("Location: ../../index.php?page=$lastPage");
             exit();

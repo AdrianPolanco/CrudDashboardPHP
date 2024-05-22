@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($errors)) {
         $db = new Database();
-        $success = $db->updateRecord(intval($id), $name, $lastname, $birthDate);
+        $success = $db->updateWarrior(intval($id), $name, $lastname, $birthDate);
 
         if ($success) {
             $successMessage = "El guerrero Z se ha actualizado correctamente.";

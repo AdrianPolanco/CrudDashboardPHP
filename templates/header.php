@@ -1,6 +1,9 @@
 <?php
 
-declare(strict_types=1); ?>
+declare(strict_types=1);
+require_once './helpers/utils.php';
+$baseUrl = getBaseUrl();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +62,7 @@ declare(strict_types=1); ?>
     <header class="navbar navbar-expand-lg p-3 bg-warning">
         <div class="container-fluid" class="logo">
             <div class="logo">
-                <a class="navbar-brand" href="./index.php"><img src="./assets/logo.png" class="image" /></a>
+                <a class="navbar-brand" href="<?= $baseUrl ?>/index.php"><img src="<?= $baseUrl ?>/assets/logo.png" class="image" /></a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -67,13 +70,13 @@ declare(strict_types=1); ?>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#"><strong>Guerreros</strong></a>
+                        <a class="nav-link active text-white" aria-current="page" href="./index.php"><strong>Guerreros</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#"><strong>Habilidades</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#"><strong>Tipos</strong></a>
+                        <a class="nav-link text-white" href="./views/abilities_types.index.php"><strong>Tipos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#"><strong>Dashboard</strong></a>

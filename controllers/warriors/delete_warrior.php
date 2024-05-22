@@ -8,7 +8,7 @@ $id = $_GET['id'] ?? null;
 $page = $_GET['page'] ?? 1;
 
 if ($id) {
-    $warrior = $db->deleteRecord(intval($id));
+    $warrior = $db->deleteWarrior(intval($id));
 
     header("Location: ../../index.php?page=$page");
 }

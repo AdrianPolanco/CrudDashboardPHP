@@ -17,46 +17,28 @@
     $form->render();
     ?>
     <article class="col-8 p-4 d-flex flex-column align-items-center">
-        <table class="table">
-            <thead class="table-warning">
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Fecha de nacimiento</th>
-                <th scope="col">Acciones</th>
-            </thead>
-            <?php
+        <?php
 
 
-            include 'data/database.php';
-            $db = new Database();
-            $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-            ["data" => $data, "totalPages" => $totalPages] = $db->getRecordsByPage(page: $page);
-            ?>
-            <?php if (!$data) : ?>
-                <tbody>
-                    <tr class="text-center">
-                        <td colspan="5">No hay guerreros registrados</td>
-                    </tr>
-                </tbody>
-            <?php else : ?>
-                <tbody>
-                    <?php foreach ($data as $row) : ?>
-                        <tr>
-                            <th scope="row"><?= $row["id"] ?></th>
-                            <td><?= $row["nombre"] ?></td>
-                            <td><?= $row["apellido"] ?></td>
-                            <td><?= $row["fecha_nacimiento"] ?></td>
-                            <td>
-                                <a href="./controllers/warriors/get_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="./controllers/warriors/delete_warrior.php?id=<?= $row["id"] ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            <?php endif; ?>
+        include 'data/database.php';
+        include 'types/table/Table.php';
+        $db = new Database();
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        ["data" => $data, "totalPages" => $totalPages] = $db->getRecordsByPage(page: $page);
 
-        </table>
+        $table = new Table(
+            columns: ["id", "nombre", "apellido", "fecha_nacimiento"],
+            data: $data,
+            page: $page,
+            totalPages: $totalPages,
+            updateRoute: "controllers/warriors/update_warrior.php",
+            updateQueryParameter: "id",
+            deleteRoute: "controllers/warriors/delete_warrior.php",
+            deleteQueryParameter: "id"
+        );
+
+        $table->render();
+        ?>
         <nav aria-label="Warriors pagination">
             <ul class="pagination">
                 <ul class="pagination">

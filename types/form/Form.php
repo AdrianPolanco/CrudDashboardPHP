@@ -25,11 +25,11 @@ class Form
         $this->formFields = $formFields;
     }
 
-    public function render()
+    public function render(string $templateRoute = 'templates/FormTemplate.php')
     {
         $formTitle = $this->formTitle;
         $formAction = $this->formAction;
         $formFields = $this->formFields;
-        include 'templates/FormTemplate.php';;
+        include $templateRoute;
     }
 }

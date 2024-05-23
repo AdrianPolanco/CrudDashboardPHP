@@ -5,7 +5,6 @@
     include "./types/form/FormTitle.php";
     include "./types/form/FormAction.php";
     include "./types/form/FormInput.php";
-    include './types/routes/UpdateRoute.php';
     // Define los datos del formulario
     $formTitle = new FormTitle("Registrar nuevo guerrero Z", "warning");
     $formAction = new FormAction("controllers/warriors/create_warrior.php");
@@ -19,9 +18,11 @@
     ?>
     <article class="col-8 p-4 d-flex flex-column align-items-center">
         <?php
-        include './data/database.php';
-        include './types/table/Table.php';
 
+
+        include 'data/database.php';
+        include 'types/table/Table.php';
+        include 'types/routes/UpdateRoute.php';
         $db = new Database();
         $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
         ["data" => $data, "totalPages" => $totalPages] = $db->getWarriorsByPage(page: $page);
@@ -31,7 +32,11 @@
             data: $data,
             page: $page,
             totalPages: $totalPages,
-            updateRoute: new UpdateRoute("controllers/warriors/get_warrior.php", "controllers/warriors/update_warrior.php", "id"),
+            updateRoute: new UpdateRoute(
+                "controllers/warriors/get_warrior.php",
+                "controllers/warriors/update_warrior.php",
+                "id"
+            ),
             deleteRoute: "controllers/warriors/delete_warrior.php",
             deleteQueryParameter: "id"
         );

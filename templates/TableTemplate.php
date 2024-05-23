@@ -1,5 +1,5 @@
 <table class="table">
-    <thead class="table-warning">
+    <thead class="table-<?= $color ?>">
         <?php foreach ($columns as $field) : ?>
             <th scope="col"><?= ucfirst($field) ?></th>
         <?php endforeach; ?>
@@ -19,7 +19,9 @@
                         <td><?= $row[$field] ?></td>
                     <?php endforeach; ?>
                     <td>
-                        <a href="<?= $updateRoute->form ?>?<?= $updateRoute->queryParameter ?>=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <?php if ($updateRoute) : ?>
+                            <a href="<?= $updateRoute->form ?>?<?= $updateRoute->queryParameter ?>=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <?php endif; ?>
                         <a href="<?= $deleteRoute ?>?<?= $deleteQueryParameter ?>=<?= $row["id"] ?>&page=<?= $page ?>" class="btn btn-small btn-danger"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>

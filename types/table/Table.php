@@ -6,18 +6,20 @@ class Table
     public array $data;
     public int $page;
     public int $totalPages;
-    public UpdateRoute $updateRoute;
+    public ?UpdateRoute $updateRoute;
     public string $deleteRoute;
     public string $deleteQueryParameter;
+    public string $color;
 
     public function __construct(
         array $columns,
         array $data,
         int $page,
         int $totalPages,
-        UpdateRoute $updateRoute,
         string $deleteRoute,
-        string $deleteQueryParameter
+        string $deleteQueryParameter,
+        string $color,
+        ?UpdateRoute $updateRoute = null
     ) {
         $this->columns = $columns;
         $this->data = $data;
@@ -26,6 +28,7 @@ class Table
         $this->updateRoute = $updateRoute;
         $this->deleteRoute = $deleteRoute;
         $this->deleteQueryParameter = $deleteQueryParameter;
+        $this->color = $color;
     }
 
     public function renderPagination(string $tableName, string $templatePaginationRoute = 'templates/PaginationTemplate.php')
@@ -33,6 +36,7 @@ class Table
         $page = $this->page;
         $totalPages = $this->totalPages;
         $tableName = $tableName;
+        $color = $this->color;
         include $templatePaginationRoute;
     }
     public function renderTable(string $templateTableRoute = 'templates/TableTemplate.php')
@@ -43,6 +47,7 @@ class Table
         $deleteRoute = $this->deleteRoute;
         $deleteQueryParameter = $this->deleteQueryParameter;
         $page = $this->page;
+        $color = $this->color;
         include $templateTableRoute;
     }
     public function render(string $templateTableRoute = 'templates/TableTemplate.php', string $templatePaginationRoute = 'templates/PaginationTemplate.php', string $tableName = "Warriors")

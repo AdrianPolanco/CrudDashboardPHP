@@ -1,4 +1,9 @@
-<?php include "./templates/header.php" ?>
+<?php
+$main = "./index.php";
+$types = "views/abilities_types.index.php";
+$logo = "./assets/logo.png";
+
+include "./templates/header.php" ?>
 <main class="container-fluid row p-3 main d-flex align-items-center">
     <?php
     include "./types/form/Form.php";
@@ -31,9 +36,10 @@
             data: $data,
             page: $page,
             totalPages: $totalPages,
-            updateRoute: new UpdateRoute("controllers/warriors/get_warrior.php", "controllers/warriors/update_warrior.php", "id"),
             deleteRoute: "controllers/warriors/delete_warrior.php",
-            deleteQueryParameter: "id"
+            deleteQueryParameter: "id",
+            color: "warning",
+            updateRoute: new UpdateRoute("controllers/warriors/get_warrior.php", "controllers/warriors/update_warrior.php", "id")
         );
 
         $table->render();

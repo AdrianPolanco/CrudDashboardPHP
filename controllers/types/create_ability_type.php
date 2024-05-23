@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $success = $db->insertAbilityType($name);
 
         if ($success) {
-            $successMessage = "El guerrero Z se ha registrado correctamente.";
+            $successMessage = "El tipo de habilidad se ha registrado correctamente.";
             $lastPage = ceil($db->countAbilityTypes() / 10);
             // Refrescar la página para ver el nuevo registro
             header("Location: ../../views/abilities_types.index.php?page=$lastPage");

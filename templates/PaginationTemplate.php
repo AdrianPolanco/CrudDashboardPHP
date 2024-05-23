@@ -13,8 +13,8 @@
 
             for ($i = $startPage; $i <= $endPage; $i++) :
             ?>
-                <li class="page-item <?= $page === $i ? 'active' : '' ?>">
-                    <a class="page-link text-<?= $page === $i ? 'white' : 'warning' ?>" href="?page=<?= $i ?>"><?= $i ?></a>
+                <li class="page-item <?= $color ?> <?= $page === $i ? 'active' : '' ?>">
+                    <a class="page-link text-<?= $page === $i ? 'white' : $color ?>" href="?page=<?= $i ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
             <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">

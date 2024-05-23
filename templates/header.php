@@ -1,8 +1,6 @@
 <?php
 
 declare(strict_types=1);
-require_once './helpers/utils.php';
-$baseUrl = getBaseUrl();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +13,7 @@ $baseUrl = getBaseUrl();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/a177f3304c.js" crossorigin="anonymous"></script>
     <style>
-        .btn-outline-warning:disabled {
+        #submitBtn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             background-color: #ccc;
@@ -30,10 +28,16 @@ $baseUrl = getBaseUrl();
             font-weight: bold;
         }
 
-        .page-item.active .page-link {
+        .page-item.warning.active .page-link {
             background-color: #ffc107;
             color: #fff;
             border-color: #ffc107;
+        }
+
+        .page-item.success.active .page-link {
+            background-color: #2E9C49;
+            color: #fff;
+            border-color: #2E9C49;
         }
 
         .page-item .page-link {
@@ -62,7 +66,7 @@ $baseUrl = getBaseUrl();
     <header class="navbar navbar-expand-lg p-3 bg-warning">
         <div class="container-fluid" class="logo">
             <div class="logo">
-                <a class="navbar-brand" href="<?= $baseUrl ?>/index.php"><img src="<?= $baseUrl ?>/assets/logo.png" class="image" /></a>
+                <a class="navbar-brand" href="/index.php"><img src="<?= $logo ?>" class="image" /></a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -70,13 +74,13 @@ $baseUrl = getBaseUrl();
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="./index.php"><strong>Guerreros</strong></a>
+                        <a class="nav-link active text-white" aria-current="page" href="<?= $main ?>"><strong>Guerreros</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#"><strong>Habilidades</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="./views/abilities_types.index.php"><strong>Tipos</strong></a>
+                        <a class="nav-link text-white" href="<?= $types ?>"><strong>Tipos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#"><strong>Dashboard</strong></a>

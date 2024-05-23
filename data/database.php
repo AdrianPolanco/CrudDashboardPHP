@@ -105,13 +105,13 @@ class Database
         $preparedQuery->execute();
         $result = $preparedQuery->get_result();
         $data = $result->fetch_all(MYSQLI_ASSOC);
-        $recordsQuantity = $this->countWarriors();
+        $recordsQuantity = $this->countAbilityTypes();
         return ["data" => $data, "totalPages" => ceil($recordsQuantity / 10)];
     }
 
     public function insertAbilityType(string $name): bool
     {
-        $sql = "INSERT INTO tipos_habilidades (nombre) VALUES (?)";
+        $sql = "INSERT INTO tipos_habilidades (tipo_habilidad) VALUES (?)";
         $preparedQuery = $this->connection->prepare($sql);
         $preparedQuery->bind_param("s", $name);
         return $preparedQuery->execute();

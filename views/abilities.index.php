@@ -49,7 +49,7 @@ include "../templates/header.php";
         ["data" => $data, "totalPages" => $totalPages] = $db->getAbilitiesByPage(page: $page);
 
         $table = new Table(
-            columns: ["id", "nombre_habilidad", "tipo_habilidad_id", "nivel_poder"],
+            columns: ["id", "nombre_habilidad", "tipo_habilidad", "nivel_poder"],
             data: $data,
             page: $page,
             totalPages: $totalPages,

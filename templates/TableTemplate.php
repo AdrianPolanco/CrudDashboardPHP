@@ -1,7 +1,11 @@
 <table class="table">
     <thead class="table-<?= $color ?>">
         <?php foreach ($columns as $field) : ?>
-            <th scope="col"><?= ucfirst($field) ?></th>
+            <?php if (array_key_exists($field, $names)) : ?>
+                <th scope="col"><?= ucfirst($names[$field]) ?></th>
+            <?php else : ?>
+                <th scope="col"><?= ucfirst($field) ?></th>
+            <?php endif; ?>
         <?php endforeach; ?>
         <th scope="col">Acciones</th>
     </thead>
@@ -16,7 +20,6 @@
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <?php foreach ($columns as $field) : ?>
-
                         <td><?= $row[$field] ?></td>
                     <?php endforeach; ?>
                     <td>

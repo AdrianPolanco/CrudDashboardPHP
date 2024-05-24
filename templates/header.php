@@ -40,6 +40,12 @@ declare(strict_types=1);
             border-color: #2E9C49;
         }
 
+        .page-item.info.active .page-link {
+            background-color: #73FFF5;
+            color: #fff;
+            border-color: #73FFF5;
+        }
+
         .page-item .page-link {
             background-color: #fff;
             color: #ffc107;

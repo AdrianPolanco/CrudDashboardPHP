@@ -2,6 +2,7 @@
 $main = "./index.php";
 $types = "views/abilities_types.index.php";
 $logo = "./assets/logo.png";
+$abilities = "./views/abilities.index.php";
 
 include "./templates/header.php" ?>
 <main class="container-fluid row p-3 main d-flex align-items-center">

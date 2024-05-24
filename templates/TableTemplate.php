@@ -16,6 +16,7 @@
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <?php foreach ($columns as $field) : ?>
+
                         <td><?= $row[$field] ?></td>
                     <?php endforeach; ?>
                     <td>

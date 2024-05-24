@@ -77,7 +77,7 @@ declare(strict_types=1);
                         <a class="nav-link active text-white" aria-current="page" href="<?= $main ?>"><strong>Guerreros</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#"><strong>Habilidades</strong></a>
+                        <a class="nav-link text-white" href="<?= $abilities ?>"><strong>Habilidades</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="<?= $types ?>"><strong>Tipos</strong></a>

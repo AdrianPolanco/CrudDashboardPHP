@@ -1,6 +1,7 @@
 <?php
 $main = "../index.php";
 $types = "abilities_types.index.php";
+$abilities = "abilities.index.php";
 $logo = "../assets/logo.png";
 include "../templates/header.php" ?>
 <main class="container-fluid row p-3 main d-flex align-items-center">

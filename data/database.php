@@ -83,6 +83,15 @@ class Database
         return (int)$row["COUNT(*)"];
     }
 
+    public function getAbilitiesTypes(): ?array
+    {
+        $sql = "SELECT * FROM tipos_habilidades";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function getAbilityTypeById(int $id): ?array
     {
         $sql = "SELECT * FROM tipos_habilidades WHERE id = ?";
@@ -120,6 +129,66 @@ class Database
     public function deleteAbilityType(int $id): bool
     {
         $sql = "DELETE FROM tipos_habilidades WHERE id = ?";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("i", $id);
+        return $preparedQuery->execute();
+    }
+
+    public function countAbilities(): int
+    {
+        $sql = "SELECT COUNT(*) FROM habilidades";
+        $result = $this->connection->query($sql);
+        $row = $result->fetch_assoc();
+        return (int)$row["COUNT(*)"];
+    }
+
+    public function getAbilities(): ?array
+    {
+        $sql = "SELECT * FROM habilidades";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAbilityById(int $id): ?array
+    {
+        $sql = "SELECT * FROM habilidades WHERE id = ?";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("i", $id);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        return $result->fetch_assoc() ?: null;
+    }
+
+    public function getAbilitiesByPage(int $page): array
+    {
+        $offset = ($page - 1) * 10;
+        $sql = "SELECT h.*, th.tipo_habilidad
+            FROM habilidades h
+            INNER JOIN tipos_habilidades th ON h.tipo_habilidad_id = th.id
+            ORDER BY h.id
+            LIMIT 10 OFFSET ?";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("i", $offset);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $recordsQuantity = $this->countAbilities();
+        return ["data" => $data, "totalPages" => ceil($recordsQuantity / 10)];
+    }
+
+    public function insertAbility(string $name, string $type, int $power): bool
+    {
+        $sql = "INSERT INTO habilidades (nombre_habilidad, tipo_habilidad_id, nivel_poder) VALUES (?, ?, ?)";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("ssi", $name, $type, $power);
+        return $preparedQuery->execute();
+    }
+
+    public function deleteAbility(int $id): bool
+    {
+        $sql = "DELETE FROM habilidades WHERE id = ?";
         $preparedQuery = $this->connection->prepare($sql);
         $preparedQuery->bind_param("i", $id);
         return $preparedQuery->execute();

@@ -89,7 +89,7 @@ declare(strict_types=1);
                         <a class="nav-link text-white" href="<?= $types ?>"><strong>Tipos</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#"><strong>Dashboard</strong></a>
+                        <a class="nav-link text-white" href="<?= $dashboard ?>"><strong>Dashboard</strong></a>
                     </li>
                 </ul>
             </div>

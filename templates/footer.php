@@ -1,5 +1,8 @@
 <?php
 ?>
+
+
+</body>
 <footer class="bg-warning text-center p-3">
     <p class="text-white"> &copy; <?= date("Y"); ?> - Todos los derechos reservados</p>
 </footer>

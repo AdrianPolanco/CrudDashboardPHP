@@ -23,6 +23,9 @@
                         <td><?= $row[$field] ?></td>
                     <?php endforeach; ?>
                     <td>
+                        <?php if ($showMoreInfo) : ?>
+                            <a href="./controllers/warriors_abilities/details.php?id=<?= $row["id"] ?>&page=1" class="btn btn-small btn-success"><i class="fa-solid fa-eye"></i></a>
+                        <?php endif; ?>
                         <?php if ($updateRoute) : ?>
                             <a href="<?= $updateRoute->form ?>?<?= $updateRoute->queryParameter ?>=<?= $row["id"] ?>" class="btn btn-small btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                         <?php endif; ?>

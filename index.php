@@ -3,6 +3,8 @@ $main = "./index.php";
 $types = "views/abilities_types.index.php";
 $logo = "./assets/logo.png";
 $abilities = "./views/abilities.index.php";
+$dashboard = "./views/dashboard.php";
+$warriorsPage = "./views/warrior_ability.index.php";
 
 include "./templates/header.php" ?>
 <main class="container-fluid row p-3 main d-flex align-items-center">
@@ -40,7 +42,8 @@ include "./templates/header.php" ?>
             deleteRoute: "controllers/warriors/delete_warrior.php",
             deleteQueryParameter: "id",
             color: "warning",
-            updateRoute: new UpdateRoute("controllers/warriors/get_warrior.php", "controllers/warriors/update_warrior.php", "id")
+            updateRoute: new UpdateRoute("controllers/warriors/get_warrior.php", "controllers/warriors/update_warrior.php", "id"),
+            showMoreInfo: true
         );
 
         $table->render();

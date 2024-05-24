@@ -12,6 +12,7 @@ declare(strict_types=1);
     <title>Sistema de gestion de guerreros Z</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/a177f3304c.js" crossorigin="anonymous"></script>
+
     <style>
         #submitBtn:disabled {
             opacity: 0.5;
@@ -61,6 +62,19 @@ declare(strict_types=1);
             height: 40px;
         }
 
+        footer {
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            flex-grow: 1;
+        }
+
         .image {
             width: 100%;
         }
@@ -80,13 +94,16 @@ declare(strict_types=1);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="<?= $main ?>"><strong>Guerreros</strong></a>
+                        <a class="nav-link active text-white" aria-current="page" href="<?= $main ?>"><strong>Registrar nuevo guerrero</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="<?= $abilities ?>"><strong>Habilidades</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="<?= $types ?>"><strong>Tipos</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="<?= $warriorsPage ?>"><strong>Guerreros Z</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="<?= $dashboard ?>"><strong>Dashboard</strong></a>

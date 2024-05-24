@@ -26,7 +26,8 @@ $main = "../index.php";
 $types = "./abilities_types.index.php";
 $logo = "../assets/logo.png";
 $abilities = "./abilities.index.php";
-
+$dashboard = "./dashboard.php";
+$warriorsPage = "./warrior_ability.index.php";
 include "../templates/header.php";
 ?>
 

@@ -48,6 +48,15 @@ class Database
         return ["data" => $data, "totalPages" => ceil($recordsQuantity / 10)];
     }
 
+    public function getWarriors()
+    {
+        $sql = "SELECT * FROM warriors";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     public function insertWarrior(string $name, string $lastname, string $birthdate, string $table = "warriors"): bool
     {
         $sql = "INSERT INTO $table (nombre, apellido, fecha_nacimiento) VALUES (?, ?, ?)";
@@ -201,6 +210,86 @@ class Database
         $sql = "DELETE FROM habilidades WHERE id = ?";
         $preparedQuery = $this->connection->prepare($sql);
         $preparedQuery->bind_param("i", $id);
+        return $preparedQuery->execute();
+    }
+
+    public function addAbilityToWarrior(int $warriorId, int $abilityId): bool
+    {
+        $sql = "INSERT INTO warriors_habilidades (warrior_id, habilidad_id) VALUES (?, ?)";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("ii", $warriorId, $abilityId);
+        return $preparedQuery->execute();
+    }
+
+    public function getAbilitiesByWarriorId(int $warriorId): ?array
+    {
+        $sql = "SELECT h.nombre_habilidad,th.tipo_habilidad,h.nivel_poder
+                FROM habilidades h INNER JOIN warriors_habilidades wh ON h.id = wh.habilidad_id
+                INNER JOIN tipos_habilidades th ON h.tipo_habilidad_id = th.id
+                WHERE wh.warrior_id = ?";
+
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("i", $warriorId);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public
+    function countWarriorAbilities($warriorId)
+    {
+        $sql = "SELECT COUNT(*) AS total_registros
+            FROM warriors_habilidades
+            WHERE warrior_id = ?";
+
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("i", $warriorId);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['total_registros'];
+    }
+
+    public function getWarriorsAbilitiesByPage($warriorId, $page = 1, $registrosPorPagina = 10): array
+    {
+        $sql = "SELECT wh.warrior_id, wh.habilidad_id,
+        h.nombre_habilidad,
+        th.tipo_habilidad,
+        h.nivel_poder
+    FROM
+        habilidades h
+    INNER JOIN
+        warriors_habilidades wh ON h.id = wh.habilidad_id
+    INNER JOIN
+        tipos_habilidades th ON h.tipo_habilidad_id = th.id
+    WHERE
+        wh.warrior_id = ?
+    ORDER BY
+        h.nombre_habilidad
+    LIMIT ?
+    OFFSET ?";
+
+        $offset = ($page - 1) * $registrosPorPagina;
+
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("iii", $warriorId, $registrosPorPagina, $offset);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        $habilidades = $result->fetch_all(MYSQLI_ASSOC);
+        $totalRegistros = $this->countWarriorAbilities($warriorId);
+
+        return [
+            'data' => $habilidades,
+            'totalPages' => $totalRegistros
+        ];
+    }
+
+    public function deleteAbilityForWarrior(int $warriorId, int $abilityId): bool
+    {
+        $sql = "DELETE FROM warriors_habilidades WHERE warrior_id = ? AND habilidad_id = ?";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("ii", $warriorId, $abilityId);
         return $preparedQuery->execute();
     }
 }

@@ -21,7 +21,7 @@
         </div>
     <?php endforeach; ?>
     <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-outline-<?= $formTitle->color ?> enabled" id="submitBtn" disabled>Registrar</button>
+        <button type="submit" class="btn btn-outline-<?= $formTitle->color ?> enabled" id="submitBtn" <?= ($validate ? "disabled" : "") ?>>Registrar</button>
     </div>
 
 </form>

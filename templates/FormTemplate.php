@@ -2,17 +2,21 @@
     <h3 class="text-<?= $formTitle->color ?> text-center"><?= $formTitle->title ?></h3>
     <?php foreach ($formFields as $field) : ?>
         <div class="mb-3">
-            <label for="<?= $field->inputName ?>" class="form-label"><?= $field->name ?></label>
+            <?php if ($field->type !== 'hidden') : ?>
+                <label for="<?= $field->inputName ?>" class="form-label"><?= $field->name ?></label>
+            <?php endif; ?>
             <?php if ($field->type === 'date') : ?>
-                <input type="<?= $field->type ?>" class="form-control" name="<?= $field->inputName ?>" required max="<?= $field->pattern ?>">
+                <input type="<?= $field->type ?>" class="form-control" name="<?= $field->inputName ?>" required max="<?= $field->pattern ?>" <?= ($field->value !== null) ? "value='$field->value'" : "" ?>>
+            <?php elseif ($field->type === "hidden") : ?>
+                <input type="<?= $field->type ?>" name="<?= $field->inputName ?>" value="<?= $field->value ?>" />
             <?php elseif ($field->type === 'select') : ?>
                 <select class="form-select" aria-label="Seleccionar habilidad" name=<?= $field->selectName ?>>
                     <?php foreach ($field->options as $option) : ?>
-                        <option value="<?= $option->optionValue ?>"><?= $option->optionName ?></option>
+                        <option value="<?= $option->optionValue ?>" <?= ($option->optionValue == $field->value) ? 'selected' : '' ?>><?= $option->optionName ?> </option>
                     <?php endforeach; ?>
                 </select>
             <?php else : ?>
-                <input type="<?= $field->type ?>" class="form-control" name="<?= $field->inputName ?>" required pattern="<?= $field->pattern ?>" minlength="<?= $field->minLength ?>" placeholder="<?= $field->placeholder ?>">
+                <input type="<?= $field->type ?>" class="form-control" name="<?= $field->inputName ?>" required pattern="<?= $field->pattern ?>" minlength="<?= $field->minLength ?>" placeholder="<?= $field->placeholder ?>" <?= ($field->value !== null) ? "value='$field->value'" : "" ?>>
             <?php endif; ?>
         </div>
     <?php endforeach; ?>

@@ -8,7 +8,7 @@ $id = $_GET['id'] ?? null;
 $page = $_GET['page'] ?? 1;
 
 if ($id) {
-    $abilityType = $db->deleteAbilityType(intval($id));
+    $ability = $db->deleteAbility(intval($id));
 
-    header("Location: ../../views/abilities_types.index.php?page=$page");
+    header("Location: ../../views/abilities.index.php?page=$page");
 }

@@ -24,4 +24,14 @@ class Validator
         }
         return null;
     }
+
+    public static function validatePower(string $power): ?string
+    {
+        if (empty($power)) {
+            return "El campo 'Nivel de poder' es obligatorio.";
+        } elseif (!preg_match('/^(100|[1-9]?\d)$/', $power)) {
+            return "El campo 'Nivel de poder' debe ser un número entre 0 y 100.";
+        }
+        return null;
+    }
 }

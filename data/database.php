@@ -153,7 +153,9 @@ class Database
 
     public function getAbilityById(int $id): ?array
     {
-        $sql = "SELECT * FROM habilidades WHERE id = ?";
+        $sql = "SELECT h.*, th.tipo_habilidad
+        FROM habilidades h
+        INNER JOIN tipos_habilidades th ON h.tipo_habilidad_id = th.id WHERE h.id = ?";;
         $preparedQuery = $this->connection->prepare($sql);
         $preparedQuery->bind_param("i", $id);
         $preparedQuery->execute();
@@ -183,6 +185,14 @@ class Database
         $sql = "INSERT INTO habilidades (nombre_habilidad, tipo_habilidad_id, nivel_poder) VALUES (?, ?, ?)";
         $preparedQuery = $this->connection->prepare($sql);
         $preparedQuery->bind_param("ssi", $name, $type, $power);
+        return $preparedQuery->execute();
+    }
+
+    public function updateAbility(int $id, string $name, string $type, int $power): bool
+    {
+        $sql = "UPDATE habilidades SET nombre_habilidad = ?, tipo_habilidad_id = ?, nivel_poder = ? WHERE id = ?";
+        $preparedQuery = $this->connection->prepare($sql);
+        $preparedQuery->bind_param("siii", $name, $type, $power, $id);
         return $preparedQuery->execute();
     }
 

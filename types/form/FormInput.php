@@ -10,7 +10,8 @@ class FormInput
         int $minLength = 0,
         string $type = "text",
         string $selectName = "",
-        array $options = []
+        array $options = [],
+        ?string $value = null,
     ) {
         $this->name = $name;
         $this->inputName = $inputName;
@@ -20,6 +21,7 @@ class FormInput
         $this->type = $type;
         $this->selectName = $selectName;
         $this->options = $options;
+        $this->value = $value;
     }
 
     public string $name;
@@ -30,4 +32,5 @@ class FormInput
     public string $type;
     public string $selectName;
     public array $options;
+    public ?string $value;
 }
